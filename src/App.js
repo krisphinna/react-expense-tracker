@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import logo from './logo.svg';
 import './App.css';
@@ -28,6 +28,16 @@ function App() {
 
   const handleSubmitForm = event => {
     event.preventDefault()
+
+    if (name !== '' && amount > 0) {
+    const expense = { name, amount }
+    setExpenses([...expenses, expense])
+    
+    setName('')
+    setAmount('')
+  } else {
+    console.log('Invalid expense name or the amount')
+  }
   }
 
   const handleClearExpenses = () => {
@@ -38,15 +48,6 @@ function App() {
     localStorage.setItem('expenses', JSON.stringify(expenses))
   }, [expenses])
   
-  if (name !== '' && amount > 0) {
-    const expense = { name, amount }
-    setExpenses([...expenses, expense])
-    
-    setName('')
-    setAmount('')
-  } else {
-    console.log('Invalid expense name or the amount')
-  }
 
   return (
     <Container style={{ marginTop: 20}}>
